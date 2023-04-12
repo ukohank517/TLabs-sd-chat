@@ -15,7 +15,7 @@
 
 | Describe |  Method  | URI | request| response | error case |
 | ---- | ---- | ---- | ---- | ---- | ---- |
-| 获取用户信息 | GET | /room/get | roomId, ipAddress | userName, isSuperUser | 超过五人的情况return error |
+| 获取用户信息 | GET | /room/info | roomId, ipAddress | userName, isSuperUser | 超过五人的情况return error |
 
 
 ### 图像&prompt:
