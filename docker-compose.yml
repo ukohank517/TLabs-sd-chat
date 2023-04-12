@@ -20,7 +20,7 @@ services:
   db:
     platform: linux/amd64 # for M1?
     build: mysql
-    container_name: db_server
+    container_name: db
     ports:
       - '3306:3306'
     env_file:
