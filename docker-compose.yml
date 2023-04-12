@@ -1,0 +1,43 @@
+version: '3'
+services:
+  web:
+    build: web
+    container_name: web_server
+    ports:
+      - "5000:5000"
+    tty: yes
+    environment:
+      TZ: Asia/Tokyo
+      FLASK_APP: app.py
+      ENV_FILE_NAME: ".env"
+    depends_on:
+      - db
+    volumes:
+      - ./web/flask_script:/work/flask_script/
+    networks:
+      - app_net
+    command: flask run --host 0.0.0.0 --port 5000
+  db:
+    platform: linux/amd64 # for M1?
+    build: mysql
+    container_name: db_server
+    ports:
+      - '3306:3306'
+    env_file:
+      - '.env'
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: Asia/Tokyo
+    volumes:
+      - ./db-data:/var/lib/mysql
+    command: mysqld
+    networks:
+      - app_net
+volumes:
+  db-data:
+networks:
+  app_net:
+    driver: bridge
