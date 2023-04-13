@@ -70,7 +70,7 @@ def upload_image():
 
 @app.route('/image/get', methods=['GET'])
 def get_image():
-    room_id = request.json.get('room_id')
+    room_id = request.args.get('room_id')
 
     sql = """
     SELECT room_id, prompt, updated_at
@@ -81,7 +81,7 @@ def get_image():
     image_info = db.data_getter(sql, data)
 
     prompt = ""
-    updated_at
+    updated_at = ""
     if(len(image_info) == 1):
         _, prompt, updated_at = image_info[0] # data is only one line
 
