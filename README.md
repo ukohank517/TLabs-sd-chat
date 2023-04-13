@@ -8,6 +8,8 @@
 | 主页(html) | GET | / |  | html页面，画面中生成房间一个按钮(房间生成) |
 | 房间生成 | GET | /room/new |  | redirect to sd-web |
 
+主页，按下按钮会redirect到
+
 
 ### web打开页面时使用api：
 

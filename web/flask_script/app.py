@@ -15,7 +15,7 @@ def top():
 @app.route('/room/new', methods=['GET'])
 def create_room():
     room_id = str(uuid.uuid4()).replace('-','')
-    return redirect("http://20.210.110.182:7860/" + room_id)
+    return redirect("http://20.210.110.182:7860?room_id=" + room_id)
 
 @app.route('/room/info', methods=['GET'])
 def get_room_info():
@@ -41,9 +41,9 @@ def get_room_info():
         user_id = len(room_members)
         status = db.data_inserter("""
         INSERT INTO room_member(room_id, user_id, ip_address)
-        VALUES (%(room_id)s, %(ip_address)s, %(user_id)s);
+        VALUES (%(room_id)s, %(user_id)s, %(ip_address)s);
         """,
-        {'room_id': room_id, 'ip_address': ip_address, 'user_id': user_id})
+        {'room_id': room_id, 'user_id': user_id, 'ip_address': ip_address})
 
     if status == False:
         user_id = -1
