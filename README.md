@@ -34,20 +34,53 @@
 ### 图像&prompt(TODO):
 
 房主更新图像，
-
-其他成员取得房主最新更新的图像及prompt，可以用图像的最新更新时间来确定现在页面上表示的图是不是最新情报
-
 | Describe |  Method  | URI | request| response | error case |
 | ---- | ---- | ---- | ---- | ---- | ---- |
 | 更新图像 | POST | /image/upload | roomId, imageBase64, prompt | | |
+
+### 图像&prompt(TODO):
+
+其他成员取得房主最新更新的图像及prompt，可以用图像的最新更新时间来确定现在页面上表示的图是不是最新情报
+| Describe |  Method  | URI | request| response | error case |
+| ---- | ---- | ---- | ---- | ---- | ---- |
 | 取得最新图像 | GET | /image/get | roomId | imageBase64(or imageURL), prompt, latestSuccessDateTime | 房间/图像记录不存在时 empty |
+
+#### request
+`<domain>/image/get?room_id=sampleroom`
+
+#### response
+什么都没有的情况
+```
+{
+    "image": "todo, url",
+    "prompt": "",
+    "room_id": "sampleroom",
+    "todo": "get newest image",
+    "updated_at": ""
+}
+```
 
 ### 投稿聊天室
 | Describe |  Method  | URI | request| response |
 | ---- | ---- | ---- | ---- | ---- |
 | 投稿聊天 | POST | /chat/send | roomId, ipAddress | |
 
-POST: `<domain/chat/send>`
+#### request
+POST: `<domain>/chat/send`
+request json:
+```
+{
+    "room_id": "sampleroom",
+    "user_id": 4,
+    "message": "bulabulabulabulabulabula, use this prompt: samesame"
+}
+```
+#### response
+```
+{
+    "status": true
+}
+```
 
 
 
@@ -57,3 +90,43 @@ POST: `<domain/chat/send>`
 | ---- | ---- | ---- | ---- | ---- |
 | 获取聊天记录 | GET | /chat/history | roomId | chatHistory, newestChatDateTime |
 
+#### request
+GET: `<domain>/chat/history?room_id=sampleroom`
+#### response:
+```
+{
+    "chat_history": [
+        {
+            "created_at": "Thu, 13 Apr 2023 17:50:10 GMT",
+            "message": "bulabulabulabulabulabula, use this prompt: samesame",
+            "user_id": 4
+        },
+        {
+            "created_at": "Thu, 13 Apr 2023 17:50:09 GMT",
+            "message": "bulabulabulabulabulabula, use this prompt: samesame",
+            "user_id": 4
+        },
+        {
+            "created_at": "Thu, 13 Apr 2023 17:50:08 GMT",
+            "message": "bulabulabulabulabulabula, use this prompt: samesame",
+            "user_id": 4
+        },
+        {
+            "created_at": "Thu, 13 Apr 2023 17:50:04 GMT",
+            "message": "bulabulabulabulabulabula, use this prompt: samesame",
+            "user_id": 4
+        },
+        {
+            "created_at": "Thu, 13 Apr 2023 17:39:37 GMT",
+            "message": "bulabulabulabulabulabula, use this prompt: samesame",
+            "user_id": 4
+        },
+        {
+            "created_at": "Thu, 13 Apr 2023 17:37:03 GMT",
+            "message": "bulabulabulabulabulabula, use this prompt: samesame",
+            "user_id": 3
+        }
+    ],
+    "latest_date": "Thu, 13 Apr 2023 17:50:10 GMT"
+}
+```
