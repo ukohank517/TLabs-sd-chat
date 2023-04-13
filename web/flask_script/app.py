@@ -116,7 +116,7 @@ def get_message_history():
     FROM chat
     WHERE room_id = %(room_id)s
     ORDER BY created_at DESC
-    LIMIT 7;
+    LIMIT 30;
     """
     data = {'room_id': room_id}
 

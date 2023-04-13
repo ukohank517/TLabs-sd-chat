@@ -6,6 +6,7 @@ class MySQL:
         self.cur = self.conn.cursor()
 
     def data_inserter(self, sql, data):
+        self._open()
         try:
             self.cur.execute(sql, data)
         except MySQLdb.Error as e:
