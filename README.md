@@ -31,14 +31,14 @@
 ```
 只要room_id跟ip_address是固定的，每次的结果都是一样的
 
-### 图像&prompt(TODO):
+### 【TODO】房主， 更新图像&prompt
 
 房主更新图像，
 | Describe |  Method  | URI | request| response | error case |
 | ---- | ---- | ---- | ---- | ---- | ---- |
 | 更新图像 | POST | /image/upload | roomId, imageBase64, prompt | | |
 
-### 图像&prompt(TODO):
+### 其他成员， 取得图像&prompt
 
 其他成员取得房主最新更新的图像及prompt，可以用图像的最新更新时间来确定现在页面上表示的图是不是最新情报
 | Describe |  Method  | URI | request| response | error case |
