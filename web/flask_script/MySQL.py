@@ -5,10 +5,19 @@ class MySQL:
         self.conn = MySQLdb.connect(user='root', passwd='Bu7mA9si', host='db', db='tlabs', charset='utf8')
         self.cur = self.conn.cursor()
 
+    def data_inserter(self, sql, data):
+        try:
+            self.cur.execute(sql, data)
+        except MySQLdb.Error as e:
+            print('[ERROR] MySQLdb.Error: ', e)
+            return False
+        self.conn.commit()
+        self.conn.close()
 
-    # injection対策のため、全部データ取って、サーバーで検索条件を実施
-    # とりあえずリクエスト数多くないので。。
-    def data_getter(self, sql):
+        return True
+
+    # injection対策済
+    def data_getter(self, sql, data):
         self._open()
-        self.cur.execute(sql)
+        self.cur.execute(sql, data)
         return self.cur.fetchall()

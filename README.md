@@ -17,6 +17,12 @@
 | ---- | ---- | ---- | ---- | ---- | ---- |
 | 获取用户信息 | GET | /room/info | roomId, ipAddress | userName, isSuperUser | 超过五人的情况return error |
 
+`localhost:5000/room/info?room_id=sampleid&ip_address=192.168.1.0`
+
+```
+
+
+```
 
 ### 图像&prompt:
 
