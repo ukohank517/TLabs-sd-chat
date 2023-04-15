@@ -1,4 +1,5 @@
-from flask import Flask, Blueprint, redirect, jsonify, request, Response, render_template
+import os
+from flask import Flask, send_from_directory, redirect, jsonify, request, Response, render_template
 from flask_cors import CORS
 import uuid
 from MySQL import MySQL
@@ -60,12 +61,22 @@ def get_room_info():
 def upload_image():
     room_id = request.json.get('room_id')
     prompt = request.json.get('prompt')
-    image_base64 = request.json.get('image')
-    # TODO: image
+    image_url = request.json.get('image_url')
+
+    sql = """
+    INSERT INTO image (room_id, prompt, image_url)
+    VALUES (%(room_id)s, %(prompt)s, %(image_url)s)
+    ON DUPLICATE KEY UPDATE
+      prompt=%(prompt)s,
+      image_url=%(image_url)s;
+    """
+    data = {'room_id': room_id, 'prompt': prompt, 'image_url': image_url}
+
     return jsonify({
+        'status': db.data_inserter(sql, data),
         'room_id': room_id,
         'prompt': prompt,
-        'todo': 'same image in a path'
+        'image_url': image_url
     })
 
 @app.route('/image/get', methods=['GET'])
@@ -73,7 +84,7 @@ def get_image():
     room_id = request.args.get('room_id')
 
     sql = """
-    SELECT room_id, prompt, updated_at
+    SELECT room_id, prompt, image_url, updated_at
     FROM image
     WHERE room_id = %(room_id)s;
     """
@@ -81,16 +92,16 @@ def get_image():
     image_info = db.data_getter(sql, data)
 
     prompt = ""
+    image_url= ""
     updated_at = ""
     if(len(image_info) == 1):
-        _, prompt, updated_at = image_info[0] # data is only one line
+        _, prompt, image_url, updated_at = image_info[0] # data is only one line
 
     return jsonify({
         'room_id': room_id,
-        'image': 'todo, url',
         'prompt': prompt,
+        'image_url': image_url,
         'updated_at': updated_at,
-        'todo': 'get newest image'
     })
 
 @app.route('/chat/send', methods=['POST'])
