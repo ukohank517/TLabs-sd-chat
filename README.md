@@ -163,11 +163,10 @@ request json:
 什么都没有的情况
 ```
 {
-    "image": "todo, url",
-    "prompt": "",
+    "image_url": "url/image.jpg",
+    "prompt": "a picture with a man, walking with his dog",
     "room_id": "sampleroom",
-    "todo": "get newest image",
-    "updated_at": ""
+    "updated_at": "Sat, 15 Apr 2023 13:20:44 GMT"
 }
 ```
 
