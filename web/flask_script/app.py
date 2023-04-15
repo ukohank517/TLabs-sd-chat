@@ -147,6 +147,7 @@ def get_message_history():
     rows = db.data_getter(sql, data)
 
     chat_history = []
+    latest_date = ""
     for row in rows:
         _user_id, _message, _created_at = row
         chat_history.append({
@@ -154,10 +155,12 @@ def get_message_history():
             'message': _message,
             'created_at': _created_at
         })
+    if(len(rows)) != 0:
+        latest_date = rows[0][2]
 
     return jsonify({
         'chat_history': chat_history,
-        'latest_date': rows[0][2]
+        'latest_date': latest_date
     })
 
 if __name__ == '__main__':
