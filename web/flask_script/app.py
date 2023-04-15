@@ -11,12 +11,25 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def top():
-    return render_template('top.html')
+    return """
+<!DOCTYPE html>
+<html>
+    <head><title>TLabs</title></head>
+    <body> <a href="/room/new"> Create room url! </a></body>
+</html>
+    """
+
 
 @app.route('/room/new', methods=['GET'])
 def create_room():
-    room_id = str(uuid.uuid4()).replace('-','')
-    return redirect("http://20.210.110.182:7860?room_id=" + room_id)
+    room_url = "http://20.210.110.182:7860?room_id=" + str(uuid.uuid4()).replace('-','')
+    return """
+<!DOCTYPE html>
+<html>
+    <head><title>TLabs</title></head>
+    <body>please access this url, then share with other people you want to work with: <p>{}</p></body>
+</html>
+    """.format(room_url)
 
 @app.route('/room/info', methods=['GET'])
 def get_room_info():
