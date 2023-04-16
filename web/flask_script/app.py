@@ -69,6 +69,20 @@ def get_room_info():
         'user_id': user_id,
         'isSuperUser': (user_id == 0)
     })
+@app.route('/member/number', methods=['GET'])
+def count_room_member():
+    room_id = request.args.get('room_id')
+
+    data = db.data_getter("""
+    SELECT count(*)
+    FROM room_member
+    WHERE room_id = %(room_id)s;
+    """,
+    {'room_id': room_id})
+
+    return jsonify({
+        'member_num': data[0][0]
+    })
 
 @app.route('/image/upload', methods=['POST'])
 def upload_image():

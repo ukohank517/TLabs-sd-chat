@@ -21,7 +21,7 @@
 
 | Describe |  Method  | URI | request| response | error case |
 | ---- | ---- | ---- | ---- | ---- | ---- |
-| 获取用户信息 | GET | /room/info | roomId, ipAddress | userName, isSuperUser | 超过五人的情况return error |
+| 获取用户信息 | GET | /room/info | roomId, ipAddress | userName, isSuperUser | |
 
 call： `<domain>/room/info?room_id=sampleid&ip_address=192.168.1.0`
 ### response sample
@@ -34,7 +34,22 @@ call： `<domain>/room/info?room_id=sampleid&ip_address=192.168.1.0`
     "user_id": 0
 }
 ```
-# 3. 聊天室发言
+
+# 3. 获取房间内加入人数
+| Describe |  Method  | URI | request| response | error case |
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| 获取房间人数信息 | GET | /member/number | roomId | member_num | |
+
+call: `<domain>/member/number?room_id=test2`
+### response sample
+```
+{
+    "member_num": 2
+}
+```
+
+
+# 4. 聊天室发言
 使用此api，可将发言储存于后端服务器上。
 
 | Describe |  Method  | URI | request| response |
@@ -60,7 +75,7 @@ request json:
 
 
 
-# 4. 取得聊天记录
+# 5. 取得聊天记录
 
 使用此api，可以获取制定房间的最新30条聊天记录，以及最后发言时间。
 
@@ -112,7 +127,7 @@ GET: `<domain>/chat/history?room_id=sampleroom`
 ```
 
 
-# 5. 生成图像及prompt的上传
+# 6. 生成图像及prompt的上传
 
 房主在web-ui那边，按下生成按钮之后，图像会以url的形式保存在前端服务器上。
 
@@ -147,7 +162,7 @@ request json:
 ```
 
 
-# 6. 获取最新图像&prompt
+# 7. 获取最新图像&prompt
 
 除了房主以外的其他成员，可以通过敲打这个api来获取房间内最新的prompt以及图像。
 
@@ -170,7 +185,7 @@ request json:
 }
 ```
 
-# 7. 其他
+# 8. 其他
 
 - 打开前端web-ui页面时候
   - 房主： 第一个进入该房间，通过api获得的用户id为0。此时房主可以将前端网址分享给其他成员。
